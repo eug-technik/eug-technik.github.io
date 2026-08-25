@@ -5191,9 +5191,12 @@ footer {
     const emailForm = panel.querySelector(".email-submit");
     const baseMessage = "Guten Tag, ich interessiere mich grundsätzlich für Ihren geplanten Wartungsservice für Klimaanlagen. Bitte zählen Sie meine Rückmeldung für Ihre Bedarfsplanung.";
     const updateMessage = " Sie dürfen mich einmalig informieren, sobald das Angebot verfügbar ist.";
+    const whatsappNumber = "4915175091935";
 
     whatsapp?.addEventListener("click", () => {
-      showStatus(panel, "Vorschau: Die WhatsApp-Nummer wird vor Veröffentlichung ergänzt. Vorbereitete Nachricht: „" + baseMessage + (updates?.checked ? updateMessage : "") + "“");
+      const message = baseMessage + (updates?.checked ? updateMessage : "");
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.location.assign(whatsappUrl);
     });
 
     emailForm?.addEventListener("submit", (event) => {
