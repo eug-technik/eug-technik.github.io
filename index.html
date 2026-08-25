@@ -1872,6 +1872,12 @@ img {
   transform: scale(1.04);
 }
 
+.email-submit button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1985,12 +1991,18 @@ img {
 .preview-status {
   margin-top: 16px;
   padding: 13px 15px;
-  border-left: 3px solid var(--orange);
-  border-radius: 5px 12px 12px 5px;
-  background: #fff7e8;
-  color: #64450f;
+  border: 1px solid rgba(104, 138, 87, 0.28);
+  border-radius: 12px;
+  background: rgba(104, 138, 87, 0.08);
+  color: var(--ink);
   font-size: 0.72rem;
   line-height: 1.55;
+}
+
+.preview-status--error {
+  border-color: rgba(190, 82, 65, 0.3);
+  background: rgba(190, 82, 65, 0.08);
+  color: #7a2f26;
 }
 
 .founder-section {
@@ -5174,14 +5186,18 @@ footer {
     if (event.key === "Escape" && dialogBackdrop && !dialogBackdrop.hidden) closeDialog();
   });
 
-  const showStatus = (panel, message) => {
+  const interestEndpoint = "https://eug-interesse-api.aged-fog-6014.workers.dev/submit";
+
+  const showStatus = (panel, message, type = "success") => {
     let status = panel.querySelector(".preview-status");
     if (!status) {
       status = document.createElement("div");
       status.className = "preview-status";
       status.setAttribute("role", "status");
+      status.setAttribute("aria-live", "polite");
       panel.append(status);
     }
+    status.classList.toggle("preview-status--error", type === "error");
     status.textContent = message;
   };
 
@@ -5199,14 +5215,59 @@ footer {
       window.location.assign(whatsappUrl);
     });
 
-    emailForm?.addEventListener("submit", (event) => {
+    emailForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       const email = emailForm.querySelector('input[type="email"]');
+      const submitButton = emailForm.querySelector('button[type="submit"]');
+
       if (!email?.value.trim() || !email.checkValidity()) {
         email?.reportValidity();
         return;
       }
-      showStatus(panel, "Vorschau: Die Empfängeradresse wird vor Veröffentlichung ergänzt. Eingetragen wurde " + email.value.trim() + ".");
+
+      if (!updates?.checked) {
+        showStatus(panel, "Bitte bestätigen Sie den Haken für die einmalige Information.", "error");
+        updates?.focus();
+        return;
+      }
+
+      const originalLabel = submitButton?.getAttribute("aria-label") || "Interesse mit E-Mail-Adresse einreichen";
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.setAttribute("aria-label", "E-Mail-Adresse wird übermittelt");
+      }
+      showStatus(panel, "Ihre E-Mail-Adresse wird übermittelt.");
+
+      try {
+        const apiResponse = await fetch(interestEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email.value.trim(),
+            consent: true,
+          }),
+        });
+        const result = await apiResponse.json().catch(() => ({}));
+
+        if (!apiResponse.ok || !result.ok) {
+          throw new Error(result.message || "Die Rückmeldung konnte gerade nicht gespeichert werden.");
+        }
+
+        showStatus(panel, result.message || "Vielen Dank. Ihre Rückmeldung wurde gespeichert.");
+        emailForm.reset();
+        updates.checked = false;
+      } catch (error) {
+        showStatus(
+          panel,
+          error instanceof Error ? error.message : "Die Rückmeldung konnte gerade nicht gespeichert werden.",
+          "error",
+        );
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.setAttribute("aria-label", originalLabel);
+        }
+      }
     });
   });
 })();
