@@ -53,6 +53,27 @@
   will-change:transform,opacity;
   animation:eugGlow 13s ease-in-out infinite alternate;
 }
+.eug-orange-glow{
+  position:absolute;
+  z-index:1;
+  left:50%;
+  top:43%;
+  width:82%;
+  aspect-ratio:1.38;
+  border-radius:50%;
+  background:radial-gradient(
+    ellipse at center,
+    rgba(255,155,0,.34) 0%,
+    rgba(255,155,0,.19) 30%,
+    rgba(255,155,0,.075) 52%,
+    rgba(255,155,0,0) 74%
+  );
+  filter:blur(22px);
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.72);
+  pointer-events:none;
+  will-change:transform,opacity;
+}
 .eug-wall{
   position:absolute; left:12%; right:12%; top:12%; height:46%; z-index:1;
   border-radius:34px;
@@ -318,6 +339,7 @@
 
 /* ===================== CHOREOGRAFIE (läuft einmal) ===================== */
 .eug-run .eug-cover        { animation:eugCover  8.95s .15s both; }
+.eug-run .eug-orange-glow   { animation:eugOrangeOpenGlow 8.95s .15s both; }
 .eug-run .eug-cover__gloss { animation:eugGloss  8.95s .15s both; }
 .eug-run .eug-shadow       { animation:eugShadow 8.95s .15s both; }
 .eug-run .eug-status__flash{ animation:eugStatusFlash 8.95s .15s both; }
@@ -367,6 +389,13 @@
   98.9%     { transform:perspective(var(--eug-persp)) translate3d(0,1.5px,-7px) rotateX(.5deg);
               animation-timing-function:cubic-bezier(.33,0,.2,1); }
   100%      { transform:perspective(var(--eug-persp)) translate3d(0,0,0) rotateX(0deg); }
+}
+@keyframes eugOrangeOpenGlow{
+  0%, 6%   { opacity:0; transform:translate(-50%,-50%) scale(.72); }
+  17%      { opacity:.64; }
+  28%, 71% { opacity:1; transform:translate(-50%,-50%) scale(1); }
+  85%      { opacity:.48; }
+  96%,100% { opacity:0; transform:translate(-50%,-50%) scale(.82); }
 }
 
 @keyframes eugPartA{
@@ -3498,186 +3527,6 @@ h3 {
   50% { opacity: 0.72; transform: translateX(4%) rotate(9deg); }
 }
 
-/* Zweite Interpretation: Health, Ruhe und weiche Luftbewegung. */
-.hero-variant--health {
-  --health-sage: 104, 138, 87;
-  --health-dark: 29, 40, 31;
-}
-
-.hero-variant--health .hero--health {
-  background:
-    radial-gradient(circle at 76% 44%, rgba(213, 229, 206, 0.6), transparent 34%),
-    linear-gradient(145deg, #fafbf7 0%, #f2f7ef 60%, #edf4e8 100%);
-}
-
-.hero-variant--health .hero--health::before {
-  top: -22vw;
-  right: -10vw;
-  width: min(52vw, 900px);
-  height: min(52vw, 900px);
-  border-color: rgba(var(--health-sage), 0.085);
-}
-
-.hero-variant--health .hero__details {
-  width: min(100%, 690px);
-}
-
-.hero-variant--health .hero-method--health {
-  color: rgba(var(--health-dark), 0.66);
-}
-
-.hero-variant--health .hero-punch--health {
-  color: var(--green);
-  letter-spacing: 0.055em;
-}
-
-.hero-variant--health .hero__assembly {
-  align-items: center;
-}
-
-.health-air-hero {
-  position: relative;
-  width: 112%;
-  height: 100%;
-  min-height: clamp(560px, 70svh, 940px);
-  margin-left: -7%;
-  overflow: visible;
-  isolation: isolate;
-}
-
-.health-air-hero img {
-  position: absolute;
-  z-index: 2;
-  inset: 4% -13% -5% -12%;
-  width: 125%;
-  height: 101%;
-  object-fit: cover;
-  object-position: 50% 50%;
-  opacity: 0.92;
-  filter: saturate(0.76) contrast(0.97);
-  mix-blend-mode: multiply;
-  -webkit-mask-image: radial-gradient(
-    ellipse 60% 56% at 54% 50%,
-    #000 20%,
-    rgba(0, 0, 0, 0.92) 38%,
-    rgba(0, 0, 0, 0.3) 54%,
-    transparent 70%
-  );
-  mask-image: radial-gradient(
-    ellipse 60% 56% at 54% 50%,
-    #000 20%,
-    rgba(0, 0, 0, 0.92) 38%,
-    rgba(0, 0, 0, 0.3) 54%,
-    transparent 70%
-  );
-  animation: health-unit-breathe 12s ease-in-out infinite;
-}
-
-.health-air-hero__aura {
-  position: absolute;
-  z-index: 1;
-  inset: 15% 4% 8% 2%;
-  pointer-events: none;
-}
-
-.health-air-hero__aura span {
-  position: absolute;
-  top: 48%;
-  left: 55%;
-  width: 62%;
-  aspect-ratio: 1.55;
-  border: 1px solid rgba(var(--health-sage), 0.12);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: health-aura-breathe 12s ease-in-out infinite;
-}
-
-.health-air-hero__aura span:nth-child(2) {
-  width: 78%;
-  opacity: 0.64;
-  animation-delay: -4s;
-}
-
-.health-air-hero__aura span:nth-child(3) {
-  width: 94%;
-  opacity: 0.34;
-  animation-delay: -8s;
-}
-
-.health-air-hero__flow {
-  position: absolute;
-  z-index: 3;
-  inset: 17% -10% 2% -8%;
-  width: 118%;
-  height: 82%;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.health-air-hero__flow path {
-  fill: none;
-  stroke: rgba(104, 138, 87, 0.28);
-  stroke-width: 1.25;
-  stroke-linecap: round;
-  stroke-dasharray: 92 620;
-  animation: health-flow 10s linear infinite;
-}
-
-.health-air-hero__flow path:nth-child(2) {
-  stroke: rgba(255, 255, 255, 0.92);
-  animation-delay: -3.4s;
-}
-
-.health-air-hero__flow path:nth-child(3) {
-  stroke: rgba(255, 155, 0, 0.16);
-  animation-delay: -6.8s;
-}
-
-.health-air-hero__caption {
-  position: absolute;
-  z-index: 5;
-  right: 5%;
-  bottom: 10%;
-  padding: 14px 0 0 42px;
-  border-top: 1px solid rgba(var(--health-sage), 0.28);
-  color: var(--green-dark);
-  text-align: right;
-}
-
-.health-air-hero__caption span,
-.health-air-hero__caption strong {
-  display: block;
-}
-
-.health-air-hero__caption span {
-  margin-bottom: 3px;
-  color: var(--green);
-  font-size: 0.72rem;
-  letter-spacing: 0.035em;
-}
-
-.health-air-hero__caption strong {
-  font-size: clamp(0.92rem, 0.9vw, 1.12rem);
-  font-weight: 500;
-}
-
-@keyframes health-unit-breathe {
-  0%, 100% { transform: translate3d(0, 3px, 0) scale(0.995); }
-  50% { transform: translate3d(0, -5px, 0) scale(1.01); }
-}
-
-@keyframes health-aura-breathe {
-  0%, 100% { opacity: 0.24; transform: translate(-50%, -50%) scale(0.95); }
-  50% { opacity: 0.78; transform: translate(-50%, -50%) scale(1.04); }
-}
-
-@keyframes health-flow {
-  0% { stroke-dashoffset: 92; opacity: 0; }
-  10% { opacity: 0.72; }
-  42% { opacity: 0.5; }
-  58%, 100% { stroke-dashoffset: -620; opacity: 0; }
-}
-
 @media (max-width: 1180px) {
   .hero-actions {
     width: min(100%, 720px);
@@ -3687,14 +3536,8 @@ h3 {
     width: min(112%, 820px);
   }
 
-  .hero-variant--maintenance .eug-module-slot,
-  .health-air-hero {
+  .hero-variant--maintenance .eug-module-slot {
     min-height: clamp(430px, 63vw, 680px);
-  }
-
-  .health-air-hero {
-    width: min(112%, 860px);
-    margin-inline: auto;
   }
 }
 
@@ -3710,8 +3553,7 @@ h3 {
     font-size: 0.82rem;
   }
 
-  .hero-variant--maintenance .eug-module-slot,
-  .health-air-hero {
+  .hero-variant--maintenance .eug-module-slot {
     min-height: clamp(300px, 82vw, 440px);
   }
 
@@ -3727,33 +3569,10 @@ h3 {
     inset: 4% -7% 1%;
   }
 
-  .health-air-hero {
-    width: 112%;
-    margin-left: -6%;
-  }
-
-  .health-air-hero img {
-    inset: 0 -17% -5% -15%;
-    width: 132%;
-  }
-
-  .health-air-hero__caption {
-    right: 4%;
-    bottom: 3%;
-  }
-}
-
-@media (max-width: 420px) {
-  .health-air-hero__caption {
-    display: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .return-effect *,
-  .health-air-hero *,
-  .health-air-hero *::before,
-  .health-air-hero *::after {
+  .return-effect * {
     animation: none !important;
   }
 }
@@ -5380,7 +5199,7 @@ footer {
 }
 
 </style><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-</head><body><main><div class="hero-variant hero-variant--maintenance" data-hero-variant="2"><header class="topbar"><a class="brand" href="#start" aria-label="EUG – Startseite"><img class="brand-logo" src="assets/brand/eug-logo-header.png" alt="EUG – Technik aus dem Spreewald"/></a><nav class="topbar-links" aria-label="Rechtliche Informationen"><a href="#datenschutz">Datenschutz</a><a href="#impressum">Impressum</a></nav></header><section class="hero" id="start"><div class="hero__inner"><div class="hero__headline"><h1 class="hero-headline-text"><span class="hero-line hero-line--quality">Saubere Klimaanlagen bedeuten mehr Lebensqualität.</span><span class="hero-line hero-line--price">In zwei Klicks zum Wartungspreis.</span><span class="hero-line hero-line--delivery">Preis sofort. Angebot per E-Mail.</span></h1></div><div class="hero__assembly"><div class="eug-module-slot"><div class="return-effect" data-return-effect="" aria-hidden="true"><span class="return-effect__ring return-effect__ring--one"></span><span class="return-effect__ring return-effect__ring--two"></span><span class="return-effect__trace return-effect__trace--one"></span><span class="return-effect__trace return-effect__trace--two"></span></div><div class="eug-visual eug-run" data-eug-hero="" aria-hidden="true"><div class="eug-glow"></div><div class="eug-wall"></div><div class="eug-unit"><div class="eug-housing"><div class="eug-shadow"></div><div class="eug-coil"><div class="eug-grime eug-grime--deep"></div><div class="eug-shine"></div></div><div class="eug-flap"><i></i></div><div class="eug-fan"><div class="eug-fan__blades"></div><div class="eug-fan__cap"></div><div class="eug-grime eug-grime--round"></div><div class="eug-shine"></div></div><div class="eug-dust eug-dust--fan" style="left:11%;right:11%;bottom:11%;height:26%"><span style="left:16%;top:38%;--dx:-44px;--dy:32px;--d:4.20s"></span><span style="left:36%;top:62%;--dx:-18px;--dy:44px;--d:4.32s"></span><span style="left:54%;top:30%;--dx:10px;--dy:-30px;--d:4.44s"></span><span style="left:72%;top:66%;--dx:34px;--dy:40px;--d:4.56s"></span><span style="left:88%;top:40%;--dx:50px;--dy:12px;--d:4.68s"></span><span style="left:26%;top:20%;--dx:-30px;--dy:-34px;--d:4.80s"></span><span style="left:62%;top:80%;--dx:22px;--dy:48px;--d:4.92s"></span><span style="left:46%;top:50%;--dx:-4px;--dy:26px;--d:5.04s"></span></div><div class="eug-filter-b"><div class="eug-mesh"></div><div class="eug-grime"></div><div class="eug-shine"></div><div class="eug-tab"></div></div><div class="eug-dust eug-dust--b" style="inset:15% 15% 31% 15%"><span style="left:18%;top:34%;--dx:-46px;--dy:-28px;--d:3.85s"></span><span style="left:42%;top:72%;--dx:-16px;--dy:40px;--d:3.97s"></span><span style="left:66%;top:26%;--dx:30px;--dy:-42px;--d:4.09s"></span><span style="left:84%;top:58%;--dx:52px;--dy:24px;--d:4.21s"></span><span style="left:30%;top:52%;--dx:-34px;--dy:8px;--d:4.33s"></span><span style="left:56%;top:88%;--dx:12px;--dy:46px;--d:4.45s"></span><span style="left:76%;top:14%;--dx:44px;--dy:-38px;--d:4.57s"></span><span style="left:10%;top:66%;--dx:-56px;--dy:18px;--d:4.69s"></span></div><div class="eug-filter-a"><div class="eug-mesh"></div><div class="eug-grime"></div><div class="eug-shine"></div><div class="eug-tab"></div></div><div class="eug-dust eug-dust--a" style="inset:10% 9% 24% 9%"><span style="left:14%;top:26%;--dx:-52px;--dy:-34px;--d:3.50s"></span><span style="left:38%;top:64%;--dx:-30px;--dy:30px;--d:3.62s"></span><span style="left:56%;top:20%;--dx:8px;--dy:-46px;--d:3.74s"></span><span style="left:74%;top:70%;--dx:36px;--dy:34px;--d:3.86s"></span><span style="left:88%;top:34%;--dx:54px;--dy:-20px;--d:3.98s"></span><span style="left:24%;top:84%;--dx:-42px;--dy:38px;--d:4.10s"></span><span style="left:64%;top:46%;--dx:26px;--dy:-14px;--d:4.22s"></span><span style="left:44%;top:12%;--dx:-6px;--dy:-50px;--d:4.34s"></span></div><div class="eug-cover"><div class="eug-cover__seam"></div><div class="eug-cover__gloss"></div><div class="eug-status"><div class="eug-status__flash"></div></div></div></div></div><svg class="eug-air" viewBox="0 0 400 160" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="eugAirGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"></stop><stop offset="28%" stop-color="#FFFFFF" stop-opacity=".95"></stop><stop offset="62%" stop-color="#C6DCC9" stop-opacity=".8"></stop><stop offset="100%" stop-color="#C6DCC9" stop-opacity="0"></stop></linearGradient></defs><path d="M 78 6 C 132 30, 168 20, 218 46 S 318 76, 384 60"></path><path d="M 112 2 C 166 42, 208 36, 258 74 S 340 104, 396 92"></path><path d="M 148 8 C 192 52, 232 62, 292 90 S 352 120, 398 116"></path><path d="M 92 4 C 152 18, 190 6, 250 26 S 328 44, 388 36"></path></svg></div></div></div><div class="hero__details"><p class="hero-lead"><span>Sie atmen 20.000 Mal am Tag.</span><span>Wissen Sie, was Sie dabei einatmen?</span></p><p class="hero-method">Ihre Klimaanlage begleitet jeden dieser Atemzüge. Sie kühlt, filtert und sammelt dabei Staub und Rückstände.</p><p class="hero-method">Bei EUG reichen meist ein Foto und wenige Angaben. Sie sehen den Preis direkt und wählen anschließend Ihren Termin.</p><p class="hero-punch">Klarheit vor dem ersten Handgriff.</p><div class="hero-actions" aria-label="Konfigurator auswählen"><a class="configurator-button configurator-button--primary" href="#konfigurator" data-configurator-path="wartung"><span>Wartung konfigurieren</span><span aria-hidden="true">→</span></a><a class="configurator-button configurator-button--secondary" href="#neuanlage" data-configurator-path="neuanlage"><span>Noch keine Klimaanlage</span><span aria-hidden="true">→</span></a></div></div></div></section></div><div class="hero-variant hero-variant--health" data-hero-variant="4"><header class="topbar"><a class="brand" href="#health-header" aria-label="EUG – Startseite"><img class="brand-logo" src="assets/brand/eug-logo-header.png" alt="EUG – Technik aus dem Spreewald"/></a><nav class="topbar-links" aria-label="Rechtliche Informationen"><a href="#datenschutz">Datenschutz</a><a href="#impressum">Impressum</a></nav></header><section class="hero hero--health" id="health-header"><div class="hero__inner"><div class="hero__headline"><h1 class="hero-headline-text"><span class="hero-line hero-line--quality">Gesunde Raumluft beginnt im Gerät.</span><span class="hero-line hero-line--price">Wartung direkt konfigurieren.</span><span class="hero-line hero-line--delivery">Wenige Angaben. Klarer Preis.</span></h1></div><div class="hero__assembly"><div class="health-air-hero" role="img" aria-label="Ruhige Wandklimaanlage mit sanft strömender, sauberer Raumluft"><div class="health-air-hero__aura" aria-hidden="true"><span></span><span></span><span></span></div><img src="assets/images/klimaanlage-clean-airflow-clean.png" alt="" aria-hidden="true"/><svg class="health-air-hero__flow" viewBox="0 0 760 440" preserveAspectRatio="none" aria-hidden="true"><path d="M430 260 C365 278 322 318 236 340 S86 340 -20 372"></path><path d="M452 274 C386 300 346 348 250 378 S78 382 -24 410"></path><path d="M408 248 C344 252 286 278 210 294 S68 292 -18 316"></path></svg><div class="health-air-hero__caption"><span>Gefilterte Raumluft</span><strong>ruhig. sauber. spürbar.</strong></div></div></div><div class="hero__details"><p class="hero-lead"><span>Gute Raumluft fühlt sich selbstverständlich an.</span><span>Ihre Klimaanlage arbeitet jeden Tag daran mit.</span></p><p class="hero-method hero-method--health">Filter und Innenbereiche beeinflussen die Luft, die durch Ihren Raum zirkuliert. Regelmäßige Wartung unterstützt einen sauberen, hygienischen Betrieb.</p><p class="hero-method hero-method--health">Mit einem Foto und wenigen Angaben erfassen wir Ihre Anlage. Sie sehen direkt, welche Wartung passt und was sie kostet.</p><p class="hero-punch hero-punch--health">Für Räume, in denen man gerne durchatmet.</p><div class="hero-actions" aria-label="Konfigurator auswählen"><a class="configurator-button configurator-button--primary" href="#konfigurator" data-configurator-path="wartung"><span>Wartung konfigurieren</span><span aria-hidden="true">→</span></a><a class="configurator-button configurator-button--secondary" href="#neuanlage" data-configurator-path="neuanlage"><span>Noch keine Klimaanlage</span><span aria-hidden="true">→</span></a></div></div></div></section></div><section class="principles" id="konfigurator" aria-label="In drei Minuten zur Wartung"><div class="principles-intro"><h2>In drei Minuten gebucht – ganz ohne Telefonwarteschleife</h2><p>Sie kennen das: Handwerker anrufen, in der Warteschleife hängen, auf einen Rückruf warten oder erst Formulare ausfüllen, bevor überhaupt ein Preis in Sicht ist. Bei EUG reicht Ihr Smartphone.</p></div><div class="principle principle--first"><span>01</span><strong>Foto aufnehmen</strong><p>Ein klares Bild Ihrer Inneneinheit – mehr braucht es meistens nicht. Zweiteilige Anlage oder knifflige Details? Einfach ein zweites Foto dazu.</p></div><div class="principle"><span>02</span><strong>Ihre Anlage wird erkannt</strong><p>Kein Rätselraten unsererseits. Wir sehen sofort, mit welchem Gerät wir es zu tun haben – und was es wirklich braucht.</p></div><div class="principle"><span>03</span><strong>Der Preis, bevor Sie sich binden</strong><p>Sofort sichtbar. Verbindlich. Ohne Wenn und Aber. Sie entscheiden mit vollem Wissen, nicht mit einem Blankoscheck.</p></div><div class="principle principle--last"><span>04</span><strong>Ihr Termin, Ihre Entscheidung</strong><p>Erst wenn Sie zufrieden sind, geht&#x27;s weiter. So sollte Handwerk im Jahr 2027 funktionieren.</p></div><div class="fairness-promise"><strong>Unser Fairness-Versprechen</strong><p>Der angezeigte Preis basiert auf Ihren Angaben und Fotos. Zeigt sich vor Ort ein Mehraufwand, der beim Foto nicht erkennbar war, sprechen wir das offen an – die Anlage wird dann fair neu kalkuliert. Passt das für Sie nicht, berechnen wir ausschließlich die Anfahrt und fahren wieder los. Ohne Kleingedrucktes, ohne Zwang.</p></div></section><section class="visual-pair section-shell" aria-label="Klimaanlage und Geräteaufbau"><div class="health-visual" aria-label="Wandklimaanlage mit sanfter Luftströmung"><img src="assets/images/klimaanlage-clean-airflow-clean.png" alt="Herstellerneutrale weiße Wandklimaanlage in einer hellen Produktdarstellung"/><canvas class="airflow-canvas airflow-canvas--clean" aria-hidden="true"></canvas></div><div class="product-image-wrap product-image-wrap--airflow"><img src="assets/images/klimaanlage-filter-airflow-clean.png" alt="Explodierte Produktansicht einer Klimaanlage mit Gehäuse, Filtern, Wärmetauscher und Luftauslass"/><canvas class="airflow-canvas airflow-canvas--filter" aria-hidden="true"></canvas></div></section><section class="health-section section-shell"><div class="health-copy"><h2>Was in Ihrer Klimaanlage wirklich passiert</h2><p class="large-copy">Stellen Sie sich vor, ein Filter würde sprechen. Er würde Ihnen erzählen, was er in den letzten zwölf Monaten alles aufgefangen hat – jeden Sommertag, jede Nacht, in der die Anlage lief, während Sie geschlafen haben.</p><p>Genau das ist das Problem: Er spricht nicht. Er filtert einfach weiter, still und unauffällig, bis aus einem kleinen Belag ein echtes Hygienethema wird. Ablagerungen in Filter und Innenraum entstehen nicht über Nacht – aber sie entstehen. Zuverlässig. Bei jeder Anlage, die läuft.</p><p>Fachgerechte Reinigung und Wartung setzen genau hier an: Sie reduzieren diese Ablagerungen, unterstützen einen hygienischen Betrieb und sorgen dafür, dass Ihre Anlage das tut, wofür Sie sie gekauft haben – kühlen, nicht sammeln. Der Umfang richtet sich dabei immer nach Ihrer Anlage, nicht nach einem Katalogpreis von der Stange.</p></div></section><section class="founder-section section-shell" id="neuanlage"><div class="founder-photo"><img src="assets/brand/tom-jurk-meister.jpg" alt="Tom Jurk mit seinem Meisterbrief im Installateur- und Heizungsbauerhandwerk"/></div><div class="founder-copy"><h2>Der Mann, der seinen Namen dafür hergibt</h2><p>Tom Jurk hat nicht einfach ein Unternehmen gegründet. Er hat eine Familientradition weitergeführt.</p><p>Drei Generationen Handwerk liegen hinter ihm – Menschen, die gelernt haben, dass ein Kunde nicht kauft, weil ein Angebot günstig klingt, sondern weil er einer Person vertraut. Als Meister im Installateur- und Heizungsbauerhandwerk kennt Tom Jurk jede Schraube Ihrer Anlage. Aber das reicht ihm nicht. Er wollte ein Wartungsportal, bei dem Sie genau wissen, woran Sie sind – bevor der erste Handgriff passiert.</p><p>Kein Konzern. Kein Callcenter. Ein Handwerker mit einem Namen, den er sich nicht erst noch verdienen muss.</p><div class="founder-signature"><strong>Tom Jurk</strong><span>Inhaber · EUG – Technik aus dem Spreewald</span></div></div></section><footer><div class="footer-brand"><strong>EUG</strong><span>Technik aus dem Spreewald</span></div><p>Digitale Wartungs- und Serviceplattform für Klimaanlagen.</p><nav aria-label="Rechtliche Hinweise"><span id="impressum">Impressum folgt</span><span id="datenschutz">Datenschutz folgt</span></nav></footer></main>
+</head><body><main><div class="hero-variant hero-variant--maintenance" data-hero-variant="2"><header class="topbar"><a class="brand" href="#start" aria-label="EUG – Startseite"><img class="brand-logo" src="assets/brand/eug-logo-header.png" alt="EUG – Technik aus dem Spreewald"/></a><nav class="topbar-links" aria-label="Rechtliche Informationen"><a href="#datenschutz">Datenschutz</a><a href="#impressum">Impressum</a></nav></header><section class="hero" id="start"><div class="hero__inner"><div class="hero__headline"><h1 class="hero-headline-text"><span class="hero-line hero-line--quality">Saubere Klimaanlagen bedeuten mehr Lebensqualität.</span><span class="hero-line hero-line--price">In zwei Klicks zum Wartungspreis.</span><span class="hero-line hero-line--delivery">Preis sofort. Angebot per E-Mail.</span></h1></div><div class="hero__assembly"><div class="eug-module-slot"><div class="return-effect" data-return-effect="" aria-hidden="true"><span class="return-effect__ring return-effect__ring--one"></span><span class="return-effect__ring return-effect__ring--two"></span><span class="return-effect__trace return-effect__trace--one"></span><span class="return-effect__trace return-effect__trace--two"></span></div><div class="eug-visual eug-run" data-eug-hero="" aria-hidden="true"><div class="eug-glow"></div><div class="eug-orange-glow"></div><div class="eug-wall"></div><div class="eug-unit"><div class="eug-housing"><div class="eug-shadow"></div><div class="eug-coil"><div class="eug-grime eug-grime--deep"></div><div class="eug-shine"></div></div><div class="eug-flap"><i></i></div><div class="eug-fan"><div class="eug-fan__blades"></div><div class="eug-fan__cap"></div><div class="eug-grime eug-grime--round"></div><div class="eug-shine"></div></div><div class="eug-dust eug-dust--fan" style="left:11%;right:11%;bottom:11%;height:26%"><span style="left:16%;top:38%;--dx:-44px;--dy:32px;--d:4.20s"></span><span style="left:36%;top:62%;--dx:-18px;--dy:44px;--d:4.32s"></span><span style="left:54%;top:30%;--dx:10px;--dy:-30px;--d:4.44s"></span><span style="left:72%;top:66%;--dx:34px;--dy:40px;--d:4.56s"></span><span style="left:88%;top:40%;--dx:50px;--dy:12px;--d:4.68s"></span><span style="left:26%;top:20%;--dx:-30px;--dy:-34px;--d:4.80s"></span><span style="left:62%;top:80%;--dx:22px;--dy:48px;--d:4.92s"></span><span style="left:46%;top:50%;--dx:-4px;--dy:26px;--d:5.04s"></span></div><div class="eug-filter-b"><div class="eug-mesh"></div><div class="eug-grime"></div><div class="eug-shine"></div><div class="eug-tab"></div></div><div class="eug-dust eug-dust--b" style="inset:15% 15% 31% 15%"><span style="left:18%;top:34%;--dx:-46px;--dy:-28px;--d:3.85s"></span><span style="left:42%;top:72%;--dx:-16px;--dy:40px;--d:3.97s"></span><span style="left:66%;top:26%;--dx:30px;--dy:-42px;--d:4.09s"></span><span style="left:84%;top:58%;--dx:52px;--dy:24px;--d:4.21s"></span><span style="left:30%;top:52%;--dx:-34px;--dy:8px;--d:4.33s"></span><span style="left:56%;top:88%;--dx:12px;--dy:46px;--d:4.45s"></span><span style="left:76%;top:14%;--dx:44px;--dy:-38px;--d:4.57s"></span><span style="left:10%;top:66%;--dx:-56px;--dy:18px;--d:4.69s"></span></div><div class="eug-filter-a"><div class="eug-mesh"></div><div class="eug-grime"></div><div class="eug-shine"></div><div class="eug-tab"></div></div><div class="eug-dust eug-dust--a" style="inset:10% 9% 24% 9%"><span style="left:14%;top:26%;--dx:-52px;--dy:-34px;--d:3.50s"></span><span style="left:38%;top:64%;--dx:-30px;--dy:30px;--d:3.62s"></span><span style="left:56%;top:20%;--dx:8px;--dy:-46px;--d:3.74s"></span><span style="left:74%;top:70%;--dx:36px;--dy:34px;--d:3.86s"></span><span style="left:88%;top:34%;--dx:54px;--dy:-20px;--d:3.98s"></span><span style="left:24%;top:84%;--dx:-42px;--dy:38px;--d:4.10s"></span><span style="left:64%;top:46%;--dx:26px;--dy:-14px;--d:4.22s"></span><span style="left:44%;top:12%;--dx:-6px;--dy:-50px;--d:4.34s"></span></div><div class="eug-cover"><div class="eug-cover__seam"></div><div class="eug-cover__gloss"></div><div class="eug-status"><div class="eug-status__flash"></div></div></div></div></div><svg class="eug-air" viewBox="0 0 400 160" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="eugAirGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"></stop><stop offset="28%" stop-color="#FFFFFF" stop-opacity=".95"></stop><stop offset="62%" stop-color="#C6DCC9" stop-opacity=".8"></stop><stop offset="100%" stop-color="#C6DCC9" stop-opacity="0"></stop></linearGradient></defs><path d="M 78 6 C 132 30, 168 20, 218 46 S 318 76, 384 60"></path><path d="M 112 2 C 166 42, 208 36, 258 74 S 340 104, 396 92"></path><path d="M 148 8 C 192 52, 232 62, 292 90 S 352 120, 398 116"></path><path d="M 92 4 C 152 18, 190 6, 250 26 S 328 44, 388 36"></path></svg></div></div></div><div class="hero__details"><p class="hero-lead"><span>Sie atmen 20.000 Mal am Tag.</span><span>Wissen Sie, was Sie dabei einatmen?</span></p><p class="hero-method">Ihre Klimaanlage begleitet jeden dieser Atemzüge. Sie kühlt, filtert und sammelt dabei Staub und Rückstände.</p><p class="hero-method">Bei EUG reichen meist ein Foto und wenige Angaben. Sie sehen den Preis direkt und wählen anschließend Ihren Termin.</p><p class="hero-punch">Klarheit vor dem ersten Handgriff.</p><div class="hero-actions" aria-label="Konfigurator auswählen"><a class="configurator-button configurator-button--primary" href="#konfigurator" data-configurator-path="wartung"><span>Wartung konfigurieren</span><span aria-hidden="true">→</span></a><a class="configurator-button configurator-button--secondary" href="#neuanlage" data-configurator-path="neuanlage"><span>Noch keine Klimaanlage</span><span aria-hidden="true">→</span></a></div></div></div></section></div><section class="principles" id="konfigurator" aria-label="In drei Minuten zur Wartung"><div class="principles-intro"><h2>In drei Minuten gebucht – ganz ohne Telefonwarteschleife</h2><p>Sie kennen das: Handwerker anrufen, in der Warteschleife hängen, auf einen Rückruf warten oder erst Formulare ausfüllen, bevor überhaupt ein Preis in Sicht ist. Bei EUG reicht Ihr Smartphone.</p></div><div class="principle principle--first"><span>01</span><strong>Foto aufnehmen</strong><p>Ein klares Bild Ihrer Inneneinheit – mehr braucht es meistens nicht. Zweiteilige Anlage oder knifflige Details? Einfach ein zweites Foto dazu.</p></div><div class="principle"><span>02</span><strong>Ihre Anlage wird erkannt</strong><p>Kein Rätselraten unsererseits. Wir sehen sofort, mit welchem Gerät wir es zu tun haben – und was es wirklich braucht.</p></div><div class="principle"><span>03</span><strong>Der Preis, bevor Sie sich binden</strong><p>Sofort sichtbar. Verbindlich. Ohne Wenn und Aber. Sie entscheiden mit vollem Wissen, nicht mit einem Blankoscheck.</p></div><div class="principle principle--last"><span>04</span><strong>Ihr Termin, Ihre Entscheidung</strong><p>Erst wenn Sie zufrieden sind, geht&#x27;s weiter. So sollte Handwerk im Jahr 2027 funktionieren.</p></div><div class="fairness-promise"><strong>Unser Fairness-Versprechen</strong><p>Der angezeigte Preis basiert auf Ihren Angaben und Fotos. Zeigt sich vor Ort ein Mehraufwand, der beim Foto nicht erkennbar war, sprechen wir das offen an – die Anlage wird dann fair neu kalkuliert. Passt das für Sie nicht, berechnen wir ausschließlich die Anfahrt und fahren wieder los. Ohne Kleingedrucktes, ohne Zwang.</p></div></section><section class="visual-pair section-shell" aria-label="Klimaanlage und Geräteaufbau"><div class="health-visual" aria-label="Wandklimaanlage mit sanfter Luftströmung"><img src="assets/images/klimaanlage-clean-airflow-clean.png" alt="Herstellerneutrale weiße Wandklimaanlage in einer hellen Produktdarstellung"/><canvas class="airflow-canvas airflow-canvas--clean" aria-hidden="true"></canvas></div><div class="product-image-wrap product-image-wrap--airflow"><img src="assets/images/klimaanlage-filter-airflow-clean.png" alt="Explodierte Produktansicht einer Klimaanlage mit Gehäuse, Filtern, Wärmetauscher und Luftauslass"/><canvas class="airflow-canvas airflow-canvas--filter" aria-hidden="true"></canvas></div></section><section class="health-section section-shell"><div class="health-copy"><h2>Was in Ihrer Klimaanlage wirklich passiert</h2><p class="large-copy">Stellen Sie sich vor, ein Filter würde sprechen. Er würde Ihnen erzählen, was er in den letzten zwölf Monaten alles aufgefangen hat – jeden Sommertag, jede Nacht, in der die Anlage lief, während Sie geschlafen haben.</p><p>Genau das ist das Problem: Er spricht nicht. Er filtert einfach weiter, still und unauffällig, bis aus einem kleinen Belag ein echtes Hygienethema wird. Ablagerungen in Filter und Innenraum entstehen nicht über Nacht – aber sie entstehen. Zuverlässig. Bei jeder Anlage, die läuft.</p><p>Fachgerechte Reinigung und Wartung setzen genau hier an: Sie reduzieren diese Ablagerungen, unterstützen einen hygienischen Betrieb und sorgen dafür, dass Ihre Anlage das tut, wofür Sie sie gekauft haben – kühlen, nicht sammeln. Der Umfang richtet sich dabei immer nach Ihrer Anlage, nicht nach einem Katalogpreis von der Stange.</p></div></section><section class="founder-section section-shell" id="neuanlage"><div class="founder-photo"><img src="assets/brand/tom-jurk-meister.jpg" alt="Tom Jurk mit seinem Meisterbrief im Installateur- und Heizungsbauerhandwerk"/></div><div class="founder-copy"><h2>Der Mann, der seinen Namen dafür hergibt</h2><p>Tom Jurk hat nicht einfach ein Unternehmen gegründet. Er hat eine Familientradition weitergeführt.</p><p>Drei Generationen Handwerk liegen hinter ihm – Menschen, die gelernt haben, dass ein Kunde nicht kauft, weil ein Angebot günstig klingt, sondern weil er einer Person vertraut. Als Meister im Installateur- und Heizungsbauerhandwerk kennt Tom Jurk jede Schraube Ihrer Anlage. Aber das reicht ihm nicht. Er wollte ein Wartungsportal, bei dem Sie genau wissen, woran Sie sind – bevor der erste Handgriff passiert.</p><p>Kein Konzern. Kein Callcenter. Ein Handwerker mit einem Namen, den er sich nicht erst noch verdienen muss.</p><div class="founder-signature"><strong>Tom Jurk</strong><span>Inhaber · EUG – Technik aus dem Spreewald</span></div></div></section><footer><div class="footer-brand"><strong>EUG</strong><span>Technik aus dem Spreewald</span></div><p>Digitale Wartungs- und Serviceplattform für Klimaanlagen.</p><nav aria-label="Rechtliche Hinweise"><span id="impressum">Impressum folgt</span><span id="datenschutz">Datenschutz folgt</span></nav></footer></main>
 <script>
 (() => {
   document.querySelectorAll("[data-eug-hero].eug-run").forEach((hero) => {
