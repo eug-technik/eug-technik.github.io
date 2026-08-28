@@ -5833,4 +5833,15 @@ footer {
     field(canvas, canvas.classList.contains("airflow-canvas--filter") ? "filter" : "clean");
   });
 })();
+</script><script>
+document.querySelectorAll('a[href="#impressum"]').forEach((link) => {
+  link.setAttribute("href", "impressum/");
+});
+const footerImpressum = document.querySelector("footer #impressum");
+if (footerImpressum) {
+  const link = document.createElement("a");
+  link.href = "impressum/";
+  link.textContent = "Impressum";
+  footerImpressum.replaceWith(link);
+}
 </script></body></html>
