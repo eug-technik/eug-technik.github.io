@@ -5817,26 +5817,26 @@ footer {
 
   .hero-brand-band {
     width: calc(100% - 24px);
-    min-height: 124px;
-    padding: 48px 0 4px;
+    min-height: 136px;
+    padding: 46px 0 2px;
   }
 
   .hero-brand-band .brand {
-    width: clamp(150px, 42vw, 180px);
+    width: clamp(136px, 38vw, 158px);
   }
 
   .hero-variant--maintenance .hero {
-    min-height: calc(100svh - 124px);
+    min-height: calc(100svh - 136px);
   }
 
   .hero-variant--maintenance .hero__inner {
-    width: calc(100% - 32px);
-    min-height: calc(100svh - 124px);
-    padding: clamp(12px, 2.2svh, 18px) 0 10px;
+    width: calc(100% - 36px);
+    min-height: calc(100svh - 136px);
+    padding: clamp(14px, 2svh, 20px) 0 20px;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto minmax(0, 1fr);
-    align-content: stretch;
-    row-gap: clamp(8px, 1.35svh, 12px);
+    grid-template-rows: auto auto auto;
+    align-content: start;
+    row-gap: clamp(10px, 1.5svh, 14px);
   }
 
   .hero-variant--maintenance .hero__headline {
@@ -5846,24 +5846,39 @@ footer {
   }
 
   .hero-variant--maintenance .hero h1.hero-headline-text {
-    gap: clamp(0.12rem, 0.7vw, 0.22rem);
+    gap: 0.3rem;
+    line-height: 1;
+  }
+
+  .hero-variant--maintenance .hero h1.hero-headline-text .hero-line {
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
   }
 
   .hero-variant--maintenance .hero h1.hero-headline-text .hero-line--quality {
-    font-size: clamp(0.62rem, 3.12cqw, 0.88rem);
+    max-width: 32ch;
+    font-size: clamp(0.88rem, 4.15cqw, 1.08rem);
+    line-height: 1.18;
+    letter-spacing: -0.025em;
   }
 
   .hero-variant--maintenance .hero h1.hero-headline-text .hero-line--price {
-    font-size: clamp(1rem, 5.08cqw, 1.42rem);
+    max-width: 18ch;
+    font-size: clamp(1.65rem, 7.55cqw, 2.12rem);
+    line-height: 1.03;
+    letter-spacing: -0.045em;
   }
 
   .hero-variant--maintenance .hero h1.hero-headline-text .hero-line--delivery {
-    font-size: clamp(0.8rem, 4.02cqw, 1.14rem);
+    font-size: clamp(1.02rem, 4.85cqw, 1.28rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
   }
 
   .hero-variant--maintenance .hero__details {
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 3;
     width: 100%;
     max-width: none;
     padding: 0;
@@ -5876,41 +5891,68 @@ footer {
   }
 
   .hero-variant--maintenance .hero-actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     width: 100%;
     margin-top: 0;
-    gap: 8px;
+    gap: 10px;
   }
 
   .hero-variant--maintenance .configurator-button {
-    min-height: 48px;
-    padding: 0 12px;
-    gap: 8px;
-    border-radius: 10px;
-    font-size: clamp(0.67rem, 3vw, 0.78rem);
-    line-height: 1.18;
+    width: 100%;
+    min-height: 56px;
+    padding: 0 14px 0 18px;
+    gap: 14px;
+    border-radius: 14px;
+    font-size: clamp(0.8rem, 3.5vw, 0.92rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-variant--maintenance .configurator-button > span:last-child {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.92rem;
+  }
+
+  .hero-variant--maintenance .configurator-button--primary {
+    box-shadow: 0 12px 28px rgba(53, 91, 56, 0.2);
+  }
+
+  .hero-variant--maintenance .configurator-button--secondary {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .hero-variant--maintenance .configurator-button--secondary > span:last-child {
+    background: rgba(104, 138, 87, 0.1);
   }
 
   .hero-variant--maintenance .hero__assembly,
   .hero-variant[data-hero-variant="2"] .hero__assembly {
     grid-column: 1;
-    grid-row: 3;
-    min-height: 0;
+    grid-row: 2;
+    height: clamp(270px, 84vw, 330px);
+    min-height: clamp(270px, 84vw, 330px);
     margin-top: 0;
     align-self: stretch;
   }
 
   .hero-variant--maintenance .eug-module-slot {
-    min-height: clamp(230px, 62vw, 300px);
+    min-height: 0;
     height: 100%;
   }
 
   .hero-variant--maintenance .eug-visual {
-    width: min(122%, 500px);
+    width: min(90vw, 350px);
   }
 
   .hero-variant--maintenance .eug-unit {
-    width: 75%;
+    width: 76%;
   }
 
   .hero-variant--maintenance .return-effect {
@@ -5921,11 +5963,11 @@ footer {
 @media (max-width: 380px), (max-height: 720px) and (max-width: 840px) {
   .hero-brand-band {
     min-height: 108px;
-    padding-top: 43px;
+    padding: 40px 0 0;
   }
 
   .hero-brand-band .brand {
-    width: clamp(132px, 39vw, 158px);
+    width: clamp(94px, 31vw, 116px);
   }
 
   .hero-variant--maintenance .hero,
@@ -5935,18 +5977,47 @@ footer {
 
   .hero-variant--maintenance .hero__inner {
     width: calc(100% - 24px);
-    padding-top: 8px;
+    padding: 8px 0 12px;
     row-gap: 7px;
   }
 
-  .hero-variant--maintenance .configurator-button {
-    min-height: 44px;
-    padding-inline: 10px;
-    font-size: 0.66rem;
+  .hero-variant--maintenance .hero h1.hero-headline-text {
+    gap: 0.2rem;
   }
 
-  .hero-variant--maintenance .eug-module-slot {
-    min-height: clamp(210px, 58vw, 252px);
+  .hero-variant--maintenance .hero h1.hero-headline-text .hero-line--quality {
+    font-size: clamp(0.76rem, 3.8vw, 0.9rem);
+  }
+
+  .hero-variant--maintenance .hero h1.hero-headline-text .hero-line--price {
+    font-size: clamp(1.4rem, 7vw, 1.72rem);
+  }
+
+  .hero-variant--maintenance .hero h1.hero-headline-text .hero-line--delivery {
+    font-size: clamp(0.92rem, 4.5vw, 1.06rem);
+  }
+
+  .hero-variant--maintenance .hero__assembly,
+  .hero-variant[data-hero-variant="2"] .hero__assembly {
+    height: clamp(210px, 68vw, 248px);
+    min-height: clamp(210px, 68vw, 248px);
+  }
+
+  .hero-variant--maintenance .configurator-button {
+    min-height: 48px;
+    padding: 0 10px 0 15px;
+    border-radius: 12px;
+    font-size: 0.76rem;
+  }
+
+  .hero-variant--maintenance .configurator-button > span:last-child {
+    width: 27px;
+    height: 27px;
+    flex-basis: 27px;
+  }
+
+  .hero-variant--maintenance .eug-visual {
+    width: min(86vw, 300px);
   }
 }
 
@@ -6138,6 +6209,36 @@ footer {
 
   .hero-variant--maintenance .eug-visual {
     width: min(78%, 280px);
+  }
+}
+
+/* Desktop: EUG-Logo wieder kompakt und mittig in der Kopfleiste. */
+@media (min-width: 961px) {
+  .hero-brand-band {
+    position: absolute;
+    z-index: 21;
+    top: 0;
+    left: 50%;
+    width: 172px;
+    height: 104px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .hero-brand-band .brand {
+    width: 152px;
+    height: 72px;
+    pointer-events: auto;
+  }
+
+  .hero-brand-band .brand-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
   }
 }
 </style><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
