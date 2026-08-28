@@ -3574,6 +3574,10 @@ h3 {
   line-height: 1.75;
 }
 
+.faq-list details.is-animating {
+  overflow: hidden;
+}
+
 @media (max-width: 920px) {
   .faq-section {
     grid-template-columns: 1fr;
@@ -3607,7 +3611,7 @@ h3 {
   }
 
   .faq-intro h2 {
-    font-size: clamp(2rem, 10vw, 3rem);
+    font-size: clamp(1.8rem, 8.7vw, 2.85rem);
   }
 
   .faq-list summary {
@@ -3617,7 +3621,7 @@ h3 {
   }
 
   .faq-list details > p {
-    margin-right: 36px;
+    margin-right: 46px;
     font-size: 0.9rem;
   }
 }
@@ -5169,7 +5173,7 @@ footer {
 
 @media (max-width: 760px) {
   :root {
-    --page-gutter: clamp(16px, 5vw, 28px);
+    --page-gutter: clamp(22px, 6.2vw, 30px);
     --section-space: clamp(52px, 14vw, 84px);
   }
 
@@ -6402,9 +6406,9 @@ footer {
 
   .hero-variant--maintenance .hero__inner {
     width: calc(100% - 36px);
-    padding: 78px 0 18px;
+    padding: 88px 0 18px;
     grid-template-rows: auto auto auto auto;
-    row-gap: clamp(9px, 1.35svh, 13px);
+    row-gap: clamp(14px, 1.8svh, 18px);
   }
 
   .hero-variant--maintenance .hero h1.hero-headline-text .hero-line--quality {
@@ -6709,5 +6713,69 @@ if (footerImpressum) {
   } else {
     mobileQuery.addListener(syncMenu);
   }
+})();
+</script><script>
+(() => {
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  document.querySelectorAll(".faq-list details").forEach((item) => {
+    const summary = item.querySelector("summary");
+    const answer = item.querySelector(":scope > p");
+    let animation = null;
+
+    if (!summary || !answer) return;
+
+    summary.addEventListener("click", (event) => {
+      if (reducedMotion.matches || typeof item.animate !== "function") return;
+
+      event.preventDefault();
+      if (animation) return;
+
+      const opening = !item.open;
+      const startHeight = item.offsetHeight;
+
+      item.open = opening;
+      const endHeight = item.offsetHeight;
+      item.open = !opening;
+      item.classList.add("is-animating");
+
+      if (opening) item.open = true;
+
+      const answerAnimation = answer.animate(
+        opening
+          ? [
+              { opacity: 0, transform: "translateY(-6px)" },
+              { opacity: 1, transform: "translateY(0)" },
+            ]
+          : [
+              { opacity: 1, transform: "translateY(0)" },
+              { opacity: 0, transform: "translateY(-5px)" },
+            ],
+        {
+          duration: opening ? 300 : 220,
+          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+          fill: "both",
+        },
+      );
+
+      animation = item.animate(
+        [
+          { height: `${startHeight}px` },
+          { height: `${endHeight}px` },
+        ],
+        {
+          duration: opening ? 360 : 280,
+          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+        },
+      );
+
+      animation.addEventListener("finish", () => {
+        item.open = opening;
+        item.classList.remove("is-animating");
+        answerAnimation.cancel();
+        animation = null;
+      }, { once: true });
+    });
+  });
 })();
 </script></body></html>
